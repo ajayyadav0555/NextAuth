@@ -1,90 +1,47 @@
-"use client";
 
-import Component4 from "@/components/Component4";
-import Component5 from "@/components/Component5";
-import Component6 from "@/components/Component6";
-import Component7 from "@/components/Component7";
-import Component8 from "@/components/Component8";
-import Componet3 from "@/components/Components3";
-import Component9 from "@/components/Components9";
-import Componet2 from "@/components/Componet2";
+import React from "react";
 import Link from "next/link";
-import { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
 
+export default async function HomePage() {
+  const handlecall=async()=>{
+    await fetch("http://localhost:3000/api/hello",{cache:"no-store"})
+    .then((res)=>res.json())
+    .then((data)=>console.log(data))
 
-export default function Home() {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleMenu = () => setIsOpen(!isOpen);
+  }
 
+  handlecall();
+    
   return (
-    <div className="overflow-x-hidden">
-      <div
-        className="flex flex-col w-screen h-screen"
-        style={{ backgroundImage: "url('/image.png')", backgroundSize: "cover", backgroundPosition: "center" }}
+    <main className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-8">
+      <nav>
+        <ul className="flex space-x-4 mb-6 text-black">
+          
+          <Link href={`/about/id?lang=en`}>
+            <li>Home</li>
+          </Link>
+          <Link href={`/about/id?lang=fr`}>
+            <li>About</li>
+          </Link>
+          <Link href={`/about/id?lang=hi`}>
+            <li>Profile</li>
+          </Link>
+          
+        </ul>
+      </nav>
+      <h1 className="sm:text-4xl font-bold text-blue-600 mb-4">
+        Welcome to My Website
+      </h1>
+      <p className="sm:text-lg text-gray-700 mb-6">
+        This is a simple homepage built with Next.js 15 and Tailwind CSS.
+      </p>
+      <Link
+        href="/blog"
+        className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
       >
-        <div className="flex items-center justify-between w-full max-w-7xl px-6 mx-auto mt-4">
-          {/* Logo */}
-          <div className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center border">P</div>
-
-          {/* Desktop Menu */}
-          <ul className="hidden md:flex gap-10">
-            {[
-              { href: "/", label: "Home" },
-              { href: "/about", label: "About" },
-              { href: "/services", label: "Services" },
-              { href: "/contact", label: "Contact" },
-            ].map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="hover:text-gray-300">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-
-          {/* Get Started Button */}
-          <button className="hidden md:block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            Get Started
-          </button>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden ml-auto"
-            onClick={toggleMenu}
-            aria-label={isOpen ? "Close menu" : "Open menu"}
-          >
-            {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="absolute top-16 left-0 min-w-screen z-50 md:hidden bg-blue-500 p-4 space-y-3 text-center">
-            {[
-              { href: "/", label: "Home" },
-              { href: "/about", label: "About" },
-              { href: "/services", label: "Services" },
-              { href: "/contact", label: "Contact" },
-            ].map((item) => (
-              <div key={item.href}>
-                <Link href={item.href} onClick={toggleMenu} className="block py-2">
-                  {item.label}
-                </Link>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      <Componet2/>
-      <Componet3/>
-      <Component4/>
-      <Component5/>
-      <Component6/>
-      <Component7/>
-      <Component8/>
-      <Component9/>
-    </div>
+        Go to Blog
+      </Link>
+      <button>Go to About</button>
+    </main>
   );
 }
